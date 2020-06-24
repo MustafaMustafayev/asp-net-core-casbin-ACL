@@ -199,5 +199,20 @@ namespace CasbinACLvsRBAC.Entity
 
             return line;
         }
+
+        public Task LoadPolicyAsync(Model model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task SavePolicyAsync(Model model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task AddPolicyAsync(string sec, string ptype, IList<string> rule)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -10,7 +10,7 @@ namespace CasbinACLvsRBAC.Entity
 {
     public class CasbinRule //<TKey> : ICasbinRule where TKey : IEquatable<TKey>
     {
-        // public virtual TKey Id { get; set; }
+      //  public virtual TKey Id { get; set; }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
