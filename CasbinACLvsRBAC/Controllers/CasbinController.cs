@@ -13,7 +13,7 @@ namespace CasbinACLvsRBAC.Controllers
     [ApiController]
     public class CasbinController : ControllerBase
     {
-        private readonly DatabaseContext _context;
+        private readonly DatabaseContext _context;  
         private readonly Enforcer _enforcer;
         public CasbinController(DatabaseContext context)
         {
@@ -23,51 +23,51 @@ namespace CasbinACLvsRBAC.Controllers
         }
 
         [HttpGet("checkRbacWithoutDomainAndRole")]
-        public IActionResult checkRbacWithoutDomain(string userName, string modulName, string permissionName)
+        public IActionResult checkRbacWithoutDomain(string userName, string domain, string permissionName)
         {
-            var response = _enforcer.Enforce(userName, modulName, permissionName);
+            var response = _enforcer.Enforce(userName, domain, permissionName);
             return Ok(response);
         }
 
         [HttpGet("checkRbacWithoutDomainButWithRole")]
-        public IActionResult checkRbacWithoutDomainButWithRole(string userName, string modulName, string permissionName)
+        public IActionResult checkRbacWithoutDomainButWithRole(string userName, string domain, string permissionName)
         {
-            var response = _enforcer.Enforce(userName, modulName, permissionName);
+            var response = _enforcer.Enforce(userName, domain, permissionName);
             return Ok(response);
         }
 
         [HttpGet("checkRbacPerUserPerObject")]
-        public IActionResult checkRbacPerUserPerObject(string userName, string modulName, string objectId, string permissionName)
+        public IActionResult checkRbacPerUserPerObject(string userName, string domain, string objectId, string permissionName)
         {
-            var response = _enforcer.HasPermissionForUser(userName, modulName, objectId, permissionName);
+            var response = _enforcer.HasPermissionForUser(userName, domain, objectId, permissionName);
             return Ok(response);
         }
 
         [HttpGet("checkRbacPerUserPerObjectByOjectType")]
-        public IActionResult checkRbacPerUserPerObjectByOjectType(string userName, string modulName, string objectId, string permissionName, string objectType)
+        public IActionResult checkRbacPerUserPerObjectByOjectType(string userName, string domain, string objectId, string permissionName, string objectType)
         {
-            var response = _enforcer.HasPermissionForUser(userName, modulName, objectId, permissionName, objectType);
+            var response = _enforcer.HasPermissionForUser(userName, domain, objectId, permissionName, objectType);
             return Ok(response);
         }
 
         [HttpPost("addPermissionWithoutDomain")]
-        public IActionResult addPermissionWithoutDomain(string userName, string modulName, string permissionName)
+        public IActionResult addPermissionWithoutDomain(string userName, string domain, string permissionName)
         {
-            bool response = _enforcer.AddPolicy(userName, modulName, permissionName);
+            bool response = _enforcer.AddPolicy(userName, domain, permissionName);
             return Ok(response);
         }
 
         [HttpPost("addPermissionWithDomain")]
-        public IActionResult addPermissionWithDomain(string userName, string modulName, string objectId, string permissionName)
+        public IActionResult addPermissionWithDomain(string userName, string domain, string objectId, string permissionName)
         {
-            bool response = _enforcer.AddPolicy(userName, modulName, objectId, permissionName);
+            bool response = _enforcer.AddPolicy(userName, domain, objectId, permissionName);
             return Ok(response);
         }
 
         [HttpPost("addPermissionPerObjectByObjectType")]
-        public IActionResult addPermissionPerObjectByObjectType(string userName, string modulName, string objectId, string permissionName, string objectType)
+        public IActionResult addPermissionPerObjectByObjectType(string userName, string domain, string objectId, string permissionName, string objectType)
         {
-            bool response = _enforcer.AddPolicy(userName, modulName, objectId, permissionName, objectType);
+            bool response = _enforcer.AddPolicy(userName, domain, objectId, permissionName, objectType);
             return Ok(response);
         }
 
@@ -79,9 +79,9 @@ namespace CasbinACLvsRBAC.Controllers
         }
 
         [HttpPost("addGeneralRoleWithDomain")]
-        public IActionResult addGeneralRoleWithDomain(string userName, string modulName, string roleName)
+        public IActionResult addGeneralRoleWithDomain(string userName, string domain, string roleName)
         {
-            bool response = _enforcer.AddRoleForUserInDomain(userName, roleName, modulName);
+            bool response = _enforcer.AddRoleForUserInDomain(userName, roleName, domain);
             return Ok(response);
         }
 
@@ -93,16 +93,16 @@ namespace CasbinACLvsRBAC.Controllers
         }
 
         [HttpDelete("deletePermissionWithoutObject")]
-        public IActionResult deletePermissionWithoutObject(string userName, string modulName, string permissionName)
+        public IActionResult deletePermissionWithoutObject(string userName, string domain, string permissionName)
         {
-            bool response = _enforcer.DeleteRoleForUserInDomain(userName, modulName, permissionName);
+            bool response = _enforcer.DeleteRoleForUserInDomain(userName, domain, permissionName);
             return Ok(response);
         }
 
         [HttpDelete("deletePermissionWithObject")]
-        public IActionResult deletePermissionWithObject(string userName, string modulName, string objectId, string permissionName)
+        public IActionResult deletePermissionWithObject(string userName, string domain, string objectId, string permissionName)
         {
-            bool response = _enforcer.DeletePermissionForUser(userName, modulName, objectId, permissionName);
+            bool response = _enforcer.DeletePermissionForUser(userName, domain, objectId, permissionName);
             return Ok(response);
         }
 
